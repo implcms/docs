@@ -2,8 +2,8 @@
 
 
 ### 章节
-- [服务器](server.md)
-- [模型](model.md)
+- [服务器](docs/server.md)
+- [模型](docs/model.md)
 
 
 
