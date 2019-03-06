@@ -55,12 +55,12 @@ model.update
 现在我们创建一个`movie`模型
 
 json数据类型
-```json
+```javascript
 {
     impl:{
         api: model.create
     },
-    modelConfig: 'akino@movie'
+    modelConfig: 'akino@movie',
     movie:{
         title: "另一城",
         poster: "default.png"
