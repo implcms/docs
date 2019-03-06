@@ -78,7 +78,7 @@ html表单
 </form>
 ```
 对应的我们需要更新记录的话增加I就可以了
-```json
+```javascript
 movie:{
     title: "另一城",
     poster: "default.png",
