@@ -89,6 +89,7 @@ movie:{
 <input name="movie[id]" value="2" type="hidden">
 ```
 
+
 #### 删除记录
 ```
 model.delete
