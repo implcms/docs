@@ -78,7 +78,7 @@ html表单
 </form>
 ```
 
-> 在html和原生js环境下我们提供了[impl.js](frontend/impl.js.md)库，通过该库你很容易实现请求。
+> 在html和原生js环境下我们提供了[impl.js](../frontend/impl.js.md)库，通过该库你很容易实现请求。
 
 对应的我们需要更新记录的话增加`id`参数就可以了
 
