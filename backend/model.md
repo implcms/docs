@@ -77,7 +77,9 @@ html表单
     <button>提交</button>
 </form>
 ```
-对应的我们需要更新记录的话增加I就可以了
+> 在html和原生js环境下我们提供了[impl.js](frontend/impl.js.md)库，通过该库你很容易实现请求。
+
+对应的我们需要更新记录的话增加`id`参数就可以了
 ```javascript
 movie:{
     title: "另一城",
