@@ -96,4 +96,4 @@ model.delete
 ```
 可选参数(二选一)
 - `id` 模型主键 例如: `id=13`
-- `filter` 过滤器，例如：`filter[price]=0`
+- `filter` 过滤器，例如：`filter[price]=2`
