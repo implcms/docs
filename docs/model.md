@@ -34,11 +34,11 @@ little:
 
 ### 查询接口
 ```
-impl-api: model.one
+model.one
 
-impl-api: model.all
+model.all
 
-impl-api: model.list
+model.list
 ```
 可选参数
 - `id` 模型主键 例如: `id=13`
@@ -48,9 +48,9 @@ impl-api: model.list
 ### 更新和创建
 
 ```
-impl-api: model.create
+model.create
 
-impl-api: model.update
+model.update
 ```
 现在我们创建一个`movie`模型
 
@@ -91,7 +91,7 @@ movie:{
 
 #### 删除记录
 ```
-impl-api: model.delete
+model.delete
 ```
 可选参数(二选一)
 - `id` 模型主键 例如: `id=13`
