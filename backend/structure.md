@@ -1,5 +1,6 @@
 # 目录结构
 
+```
 ├───applications/
 ├───storage/
 │   ├───cache/
@@ -11,7 +12,6 @@
 │   │   ├───dist/
 │   │   ├───images/
 │   │   │   └───favicon.ico
-│   │   ├───impl-electron.js
 │   │   └───impl.js
 │   ├───controllers/
 │   │   ├───ModelController.php
@@ -49,3 +49,4 @@
 ├───index.php
 ├───readme.md
 └───service.php
+```
