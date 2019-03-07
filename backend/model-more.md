@@ -1,0 +1,180 @@
+# 比较复杂的模型
+
+模型一般对应数据库里的一张表，在`implcms`模型又两个部分组成模型配置和模型接口。
+
+## 模型配置
+`applications/akino/models/movie.yaml`
+```yaml
+
+# 模型结构,包括字段以及关系。schema 用于创建数据库表
+schema:
+    title: 
+        type: longString
+        null: false
+    poster: 
+        type: string
+        null: false
+        default: default.png
+    author:
+        type: string
+        null: false
+    _indexs: 
+        - title
+        - author
+        - poster
+    _uniques:
+        - title
+    _relations:
+        artists:
+            modelConfig: akino@artists
+            type: relation
+            select: name
+```
+关键字段
+
+`_indexs` 需要创建索引的字段列表
+如果单个字段直接写一位数组就可以，例如：
+```yaml
+_indexs: 
+    - title
+    - author
+    - poster
+
+#多个字段创建索引
+
+_indexs: 
+    title_and_author: 
+        - title
+        - author
+```
+
+`_uniques` 跟`_indexs` 非常类似
+
+```yaml
+_uniques: 
+    - title
+    - author
+    - poster
+
+#多个字段创建索引
+_uniques: 
+    title_and_author: 
+        - title
+        - author
+
+```
+
+我们的模型肯定会关联很多其他模型，这些关系结构我们存到`_relations`字段里
+```yaml
+_relations:
+    tags: 
+        modelConfig: category@category
+        type: relation
+        select: name
+    episode:
+        modelConfig: akino@episode
+        type: hasMany
+    company:
+        modelConfig: akino@company
+        type: belongsTo
+```
+关系类型
+- `hasMany`
+- `belongsTo`
+- `relation(manyToMany)`
+
+
+
+
+```yaml
+# 除了schema之外其他的都是模型配置,例如：
+
+default:
+    columns:
+    - title
+    - poster
+# 上面的配置用可以通过 akino@movie 参数来访问
+
+little:
+    columns:
+    - title
+# 上面的配置用可以通过 akino@movie.little 参数来访问
+```
+上面的模型配置非常简单，为了更复杂的应用场景你也可以[深入了解](model-more.md)。
+
+## 模型接口
+
+所有的模型接口都要传`modelConfig`这个参数，以下模型配置都支持
+
+- `akino@movie`
+- `akino@movie.little`
+
+### 查询接口
+```
+model.one
+
+model.all
+
+model.list
+```
+可选参数
+- `id` 模型主键 例如: `id=13`
+- `filter` 过滤器，例如：`filter[price]=0`
+- `order` 排序，例如: `order[score]='DESC'`
+
+### 更新和创建
+
+```
+model.create
+
+model.update
+```
+现在我们创建一个`movie`模型
+
+json数据类型
+```javascript
+{
+    impl:{
+        api: model.create
+    },
+    modelConfig: 'akino@movie',
+    movie:{
+        title: "另一城",
+        poster: "default.png"
+    },
+}
+```
+html表单
+```html
+<form method="post" action="">
+    <input name="impl[api]" value="model.create" type="hidden">
+    <input name="modelConfig" value="akino@movie" type="hidden">
+    <input name="movie[title]" value="另一城" type="text">
+    <input name="movie[poster]" value="default.png" type="text">
+    <button>提交</button>
+</form>
+```
+
+> 在html和原生js环境下我们提供了[impl.js](../frontend/impl.js.md)库，通过该库你很容易实现请求。
+
+对应的我们需要更新记录的话增加`id`参数就可以了
+
+```javascript
+movie:{
+    title: "另一城",
+    poster: "default.png",
+    id: 2
+}
+```
+```html
+<input name="movie[id]" value="2" type="hidden">
+```
+
+
+#### 删除记录
+```
+model.delete
+```
+可选参数(二选一)
+- `id` 模型主键 例如: `id=13`
+- `filter` 过滤器，例如：`filter[price]=2`
