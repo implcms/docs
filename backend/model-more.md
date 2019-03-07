@@ -30,7 +30,7 @@ schema:
             type: relation
             select: name
 ```
-关键字段
+内置字段
 
 `_indexs` 需要创建索引的字段列表
 如果单个字段直接写一位数组就可以，例如：
@@ -78,36 +78,30 @@ _relations:
         modelConfig: akino@company
         type: belongsTo
 ```
-关系类型
-- `hasMany`
-- `belongsTo`
-- `relation(manyToMany)`
 
+除了`schema`之外其他的都是模型配置,可以说查询配置。通过此配置我们不仅起到查询效果之外，我们还可以通过此配置来生成我们界面，具体用法在官方发布的`admin`应用文档里做了详细解释。
 
-
+其中`default`配置是直接通过`应用名@模型名`来访问的，例如: 下面的配置可以通过`akino@movie`访问
 
 ```yaml
-# 除了schema之外其他的都是模型配置,例如：
-
 default:
+    columns:
+    - title(myTitle) #字段别名
+    - poster
+    - artists
+all:
     columns:
     - title
     - poster
-# 上面的配置用可以通过 akino@movie 参数来访问
-
-little:
-    columns:
-    - title
-# 上面的配置用可以通过 akino@movie.little 参数来访问
+    - author
+    - artists
+    - tags
 ```
-上面的模型配置非常简单，为了更复杂的应用场景你也可以[深入了解](model-more.md)。
+在上面的配置里面除了常规字段之外还有一个`artists`字段，该字段在上面的`_relations`里面定义的，通过上面的配置我们可以获取一个电影和它的演员。更多用法等你挖掘哦~
 
 ## 模型接口
 
-所有的模型接口都要传`modelConfig`这个参数，以下模型配置都支持
-
-- `akino@movie`
-- `akino@movie.little`
+所有的模型接口都要传`modelConfig`这个参数，例如：`akino@movie or akino@movie.all`
 
 ### 查询接口
 ```
@@ -119,11 +113,11 @@ model.list
 ```
 可选参数
 - `id` 模型主键 例如: `id=13`
-- `filter` 过滤器，例如：`filter[price]=0`
+- `filter` 过滤器，例如: `filter[price]=0`
 - `order` 排序，例如: `order[score]='DESC'`
+- `having` 通过关系过滤，例如: `having['artists']=12`
 
 ### 更新和创建
-
 ```
 model.create
 
@@ -131,6 +125,7 @@ model.update
 ```
 现在我们创建一个`movie`模型
 
+>更新记录需要增加`id`参数就可以了
 json数据类型
 ```javascript
 {
@@ -154,22 +149,7 @@ html表单
     <button>提交</button>
 </form>
 ```
-
 > 在html和原生js环境下我们提供了[impl.js](../frontend/impl.js.md)库，通过该库你很容易实现请求。
-
-对应的我们需要更新记录的话增加`id`参数就可以了
-
-```javascript
-movie:{
-    title: "另一城",
-    poster: "default.png",
-    id: 2
-}
-```
-```html
-<input name="movie[id]" value="2" type="hidden">
-```
-
 
 #### 删除记录
 ```
@@ -178,3 +158,20 @@ model.delete
 可选参数(二选一)
 - `id` 模型主键 例如: `id=13`
 - `filter` 过滤器，例如：`filter[price]=2`
+
+#### 附加/移除关系
+```
+model.attach
+```
+参数
+- `relation[关系名]=目标模型ID` 必填
+- `relation[remark]=关系备注参数` 可选
+
+#### 移除关系
+```
+model.detach
+```
+
+参数(二选一)
+- `relation[关系名]=目标模型ID` 
+- `id=关系ID` 
