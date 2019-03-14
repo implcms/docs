@@ -86,7 +86,7 @@ _relations:
 ```yaml
 default:
     columns:
-    - title(myTitle) #字段别名
+    - title
     - poster
     - artists
 all:
@@ -115,7 +115,7 @@ model.list
 - `id` 模型主键 例如: `id=13`
 - `filter` 过滤器，例如: `filter[price]=0`
 - `order` 排序，例如: `order[score]='DESC'`
-- `having` 通过关系过滤，例如: `having['artists']=12`
+- `having` 通过关系过滤，例如: `having[artists]=12`
 
 ### 更新和创建
 ```
@@ -164,14 +164,21 @@ model.delete
 model.attach
 ```
 参数
-- `relation[关系名]=目标模型ID` 必填
-- `relation[remark]=关系备注参数` 可选
+- `relation[name]=关系名称` 必填
+- `relation[model]=当前模型ID` 必填
+- `relation[id]=目标模型ID` 必填
+- `relation[自定义字段1]=自定义字段1` 可选
+- `relation[自定义字段n]=自定义字段n` 可选
 
 #### 移除关系
 ```
 model.detach
 ```
 
-参数(二选一)
-- `relation[关系名]=目标模型ID` 
+参数（第一种）
+- `relation[name]=关系名称` 必填
+- `relation[model_id]=当前模型ID` 必填
+- `relation[id]=目标模型ID` 必填
+
+参数（第二种）
 - `id=关系ID` 
