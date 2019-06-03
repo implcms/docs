@@ -101,27 +101,27 @@ all:
 
 ## 模型接口
 
-所有的模型接口都要传`modelConfig`这个参数，例如：`akino@movie or akino@movie.all`
+所有的模型接口可以传模型配置`modelConfig`这个参数，例如：`all`,`admin` 默认`default`
 
 ### 查询接口
 ```
-model.one
+akino@movie.one
 
-model.all
+akino@movie.all
 
-model.list
+akino@movie.list
 ```
 可选参数
 - `id` 模型主键 例如: `id=13`
 - `filter` 过滤器，例如: `filter[price]=0`
 - `order` 排序，例如: `order[score]='DESC'`
-- `having` 通过关系过滤，例如: `having[artists]=12`
+- `having` 通过关系过滤，例如: `having[artists]=12`,`having[artists]=12,15`
 
 ### 更新和创建
 ```
-model.create
+akino@movie.create
 
-model.update
+akino@movie.update
 ```
 现在我们创建一个`movie`模型
 
@@ -130,9 +130,8 @@ json数据类型
 ```javascript
 {
     impl:{
-        api: model.create
+        api: akino@movie.create
     },
-    modelConfig: 'akino@movie',
     movie:{
         title: "另一城",
         poster: "default.png"
@@ -142,8 +141,7 @@ json数据类型
 html表单
 ```html
 <form method="post" action="">
-    <input name="impl[api]" value="model.create" type="hidden">
-    <input name="modelConfig" value="akino@movie" type="hidden">
+    <input name="impl[api]" value="akino@movie.create" type="hidden">
     <input name="movie[title]" value="另一城" type="text">
     <input name="movie[poster]" value="default.png" type="text">
     <button>提交</button>
@@ -153,7 +151,7 @@ html表单
 
 #### 删除记录
 ```
-model.delete
+akino@movie.delete
 ```
 可选参数(二选一)
 - `id` 模型主键 例如: `id=13`
@@ -161,7 +159,7 @@ model.delete
 
 #### 附加/移除关系
 ```
-model.attach
+akino@movie.attach
 ```
 参数
 - `relation[name]=关系名称` 必填
@@ -172,7 +170,7 @@ model.attach
 
 #### 移除关系
 ```
-model.detach
+akino@movie.detach
 ```
 
 参数（第一种）
