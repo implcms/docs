@@ -27,18 +27,15 @@ little:
 
 ## 模型接口
 
-所有的模型接口都要传`modelConfig`这个参数，以下模型配置都支持
-
-- `akino@movie`
-- `akino@movie.little`
+所有的模型接口可以`modelConfig`这个参数,比如：`little`，默认`default`
 
 ### 查询接口
 ```
-model.one
+akino@movie.one
 
-model.all
+akino@movie.all
 
-model.list
+akino@movie.list
 ```
 可选参数
 - `id` 模型主键 例如: `id=13`
@@ -48,9 +45,9 @@ model.list
 ### 更新和创建
 
 ```
-model.create
+akino@movie.create
 
-model.update
+akino@movie.update
 ```
 现在我们创建一个`movie`模型
 
@@ -58,9 +55,8 @@ json数据类型
 ```javascript
 {
     impl:{
-        api: model.create
+        api: akino@movie.create
     },
-    modelConfig: 'akino@movie',
     movie:{
         title: "另一城",
         poster: "default.png"
@@ -70,8 +66,7 @@ json数据类型
 html表单
 ```html
 <form method="post" action="">
-    <input name="impl[api]" value="model.create" type="hidden">
-    <input name="modelConfig" value="akino@movie" type="hidden">
+    <input name="impl[api]" value="akino@movie.create" type="hidden">
     <input name="movie[title]" value="另一城" type="text">
     <input name="movie[poster]" value="default.png" type="text">
     <button>提交</button>
